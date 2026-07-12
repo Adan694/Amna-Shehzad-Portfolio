@@ -14,7 +14,6 @@ A modern, responsive portfolio website showcasing my work as a Full-Stack Develo
 - [Installation](#installation)
 - [Deployment](#deployment)
   - [Deploy to Vercel](#deploy-to-vercel)
-  - [Deploy to Netlify](#deploy-to-netlify)
 - [Configuration](#configuration)
 - [Customization Guide](#customization-guide)
   - [Adding New Projects](#adding-new-projects)
