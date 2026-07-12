@@ -27,6 +27,18 @@
 
       :root {
         --bg: #f7f3ff;
+        --bg-gradient:
+          radial-gradient(
+            circle at 10% 20%,
+            rgba(165, 110, 255, 0.06) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            circle at 90% 80%,
+            rgba(224, 138, 26, 0.04) 0%,
+            transparent 50%
+          ),
+          #f8f5ff;
         --surface: #ffffff;
         --card: #ffffff;
         --card-hover: #fbf7ff;
@@ -69,19 +81,45 @@
         --star-color: 200, 175, 255;
         --star-alpha: 0.8;
       }
-
       body {
         font-family: var(--font-body);
-        background: var(--bg);
+        background:
+          radial-gradient(
+            ellipse at 15% 25%,
+            rgba(165, 110, 255, 0.15) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 85% 75%,
+            rgba(224, 138, 26, 0.1) 0%,
+            transparent 50%
+          ),
+          radial-gradient(
+            ellipse at 50% 50%,
+            rgba(165, 110, 255, 0.05) 0%,
+            transparent 70%
+          ),
+          radial-gradient(
+            ellipse at 25% 85%,
+            rgba(31, 143, 76, 0.04) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            ellipse at 75% 15%,
+            rgba(224, 138, 26, 0.04) 0%,
+            transparent 40%
+          ),
+          #f7f3ff;
+        min-height: 100vh;
+        background-attachment: fixed;
         color: var(--text);
         line-height: 1.65;
         overflow-x: hidden;
         position: relative;
         transition:
-          background 0.3s,
-          color 0.2s;
+          background 0.5s ease,
+          color 0.3s ease;
       }
-
       #stars-canvas {
         position: fixed;
         inset: 0;
