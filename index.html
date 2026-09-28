@@ -1621,103 +1621,187 @@
         display: inline-block;
       }
       /* ===== SKILLS - CHIP CLOUD STYLE ===== */
+      /* ===== SKILLS - BEAUTIFUL MODERN CARDS ===== */
       .skills-groups {
         display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 20px;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 24px;
       }
 
       .skill-group {
         background: var(--card);
-        border-radius: 16px;
-        padding: 24px 24px 20px;
+        border-radius: 20px;
+        padding: 28px 26px 24px;
         border: 1px solid var(--border);
         box-shadow: var(--shadow);
-        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         position: relative;
         overflow: hidden;
+        isolation: isolate;
       }
 
-      /* Each group gets a unique colored top */
+      /* Soft colored radial glow behind each card */
+      .skill-group::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(
+          circle at 30% 30%,
+          var(--glow-color, var(--accent-soft)) 0%,
+          transparent 55%
+        );
+        opacity: 0;
+        transition: opacity 0.6s ease;
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .skill-group:hover::before {
+        opacity: 0.55;
+      }
+
+      /* Top gradient bar */
       .skill-group::after {
         content: "";
         position: absolute;
         top: 0;
         left: 0;
         right: 0;
-        height: 4px;
+        height: 5px;
+        transform: scaleX(0.35);
+        transform-origin: left;
+        transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        border-radius: 20px 20px 0 0;
+      }
+
+      .skill-group:hover::after {
+        transform: scaleX(1);
       }
 
       .skill-group:nth-child(1)::after {
         background: linear-gradient(90deg, #a56eff, #7c3aed);
       }
+      .skill-group:nth-child(1) {
+        --glow-color: rgba(165, 110, 255, 0.15);
+      }
+
       .skill-group:nth-child(2)::after {
         background: linear-gradient(90deg, #e08a1a, #f59e0b);
       }
+      .skill-group:nth-child(2) {
+        --glow-color: rgba(224, 138, 26, 0.15);
+      }
+
       .skill-group:nth-child(3)::after {
         background: linear-gradient(90deg, #1f8f4c, #10b981);
       }
-
-      .skill-group:hover {
-        transform: translateY(-6px);
-        border-color: var(--accent);
-        box-shadow: 0 20px 40px var(--accent-glow);
+      .skill-group:nth-child(3) {
+        --glow-color: rgba(31, 143, 76, 0.15);
       }
 
+      .skill-group:nth-child(4)::after {
+        background: linear-gradient(90deg, #ff6b6b, #f59e0b);
+      }
+      .skill-group:nth-child(4) {
+        --glow-color: rgba(255, 107, 107, 0.15);
+      }
+
+      .skill-group:hover {
+        transform: translateY(-8px);
+        border-color: transparent;
+        box-shadow: 0 24px 48px rgba(90, 50, 140, 0.18);
+      }
+
+      /* Header */
       .skill-group h4 {
         font-family: var(--font-mono);
         font-size: 0.85rem;
         color: var(--accent);
-        margin-bottom: 14px;
+        margin-bottom: 20px;
         text-transform: uppercase;
-        letter-spacing: 0.06em;
+        letter-spacing: 0.08em;
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
+        padding-bottom: 16px;
+        border-bottom: 1px dashed var(--border);
+        position: relative;
       }
 
+      /* Icon pill */
       .skill-group h4 i {
-        font-size: 1rem;
+        width: 36px;
+        height: 36px;
+        min-width: 36px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.95rem;
+        border-radius: 10px;
+        color: #fff;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
       }
 
       .skill-group:nth-child(1) h4 i {
-        color: #a56eff;
+        background: linear-gradient(135deg, #a56eff, #7c3aed);
       }
       .skill-group:nth-child(2) h4 i {
-        color: #e08a1a;
+        background: linear-gradient(135deg, #e08a1a, #f59e0b);
       }
       .skill-group:nth-child(3) h4 i {
-        color: #1f8f4c;
+        background: linear-gradient(135deg, #1f8f4c, #10b981);
+      }
+      .skill-group:nth-child(4) h4 i {
+        background: linear-gradient(135deg, #ff6b6b, #f59e0b);
       }
 
-      .skill-group h4 {
-        border-bottom: 1px dashed var(--border);
-        padding-bottom: 12px;
+      .skill-group:hover h4 i {
+        transform: rotate(-8deg) scale(1.1);
       }
 
+      /* Skill rows */
       .skill-rows {
         display: flex;
         flex-direction: column;
-        gap: 13px;
+        gap: 16px;
       }
+
       .skill-row {
         display: grid;
         grid-template-columns: 1fr auto;
         column-gap: 10px;
-        row-gap: 6px;
+        row-gap: 8px;
+        align-items: center;
       }
+
       .skill-row .skill-name {
-        font-size: 0.85rem;
+        font-size: 0.88rem;
         font-weight: 500;
         color: var(--text);
         font-family: var(--font-mono);
+        letter-spacing: -0.01em;
       }
+
       .skill-row .skill-pct {
         font-size: 0.72rem;
         font-family: var(--font-mono);
         color: var(--text-muted);
-        align-self: center;
+        font-weight: 600;
+        padding: 2px 8px;
+        border-radius: 10px;
+        background: var(--accent-soft);
+        transition: all 0.3s ease;
       }
+
+      .skill-row:hover .skill-pct {
+        background: var(--accent);
+        color: #fff;
+      }
+
       .skill-bar {
         grid-column: 1 / -1;
         height: 6px;
@@ -1726,6 +1810,7 @@
         overflow: hidden;
         position: relative;
       }
+
       .skill-bar-fill {
         height: 100%;
         width: 0;
@@ -1735,10 +1820,13 @@
           var(--fill-from, var(--c-violet)),
           var(--fill-to, var(--c-violet))
         );
-        transition: width 1.1s cubic-bezier(0.16, 1, 0.3, 1)
+        transition: width 1.2s cubic-bezier(0.16, 1, 0.3, 1)
           var(--fill-delay, 0s);
         position: relative;
+        box-shadow: 0 0 12px
+          color-mix(in srgb, var(--fill-to, var(--c-violet)) 40%, transparent);
       }
+
       .skill-bar-fill::after {
         content: "";
         position: absolute;
@@ -1746,13 +1834,15 @@
         background: linear-gradient(
           90deg,
           transparent,
-          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.55),
           transparent
         );
         transform: translateX(-100%);
-        animation: shimmerBar 2.4s ease-in-out infinite;
-        animation-delay: 1s;
+        animation: shimmerBar 2.6s ease-in-out infinite;
+        animation-delay: 1.2s;
+        border-radius: 6px;
       }
+
       @keyframes shimmerBar {
         0% {
           transform: translateX(-100%);
@@ -1762,9 +1852,11 @@
           transform: translateX(100%);
         }
       }
+
       .skill-group.show .skill-bar-fill {
         width: var(--pct);
       }
+
       @media (prefers-reduced-motion: reduce) {
         .skill-bar-fill {
           transition: none;
@@ -1774,74 +1866,36 @@
         }
       }
 
-      .skills-chips {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
+      /* Responsive */
+      @media (max-width: 900px) {
+        .skills-groups {
+          grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+          gap: 18px;
+        }
+        .skill-group {
+          padding: 22px 20px 20px;
+        }
       }
 
-      .chip {
-        background: var(--accent-soft);
-        padding: 6px 16px;
-        border-radius: 20px;
-        font-weight: 500;
-        font-size: 0.85rem;
-        color: var(--text);
-        border: 1px solid transparent;
-        transition: all 0.3s ease;
-        cursor: default;
-        position: relative;
-      }
-
-      .chip:hover {
-        transform: translateY(-3px) scale(1.04);
-        background: var(--accent);
-        color: #fff;
-        border-color: var(--accent);
-        box-shadow: 0 8px 20px var(--accent-glow);
-      }
-
-      /* Make each chip in first group different color */
-      .skill-group:nth-child(1) .chip:nth-child(1):hover {
-        background: #a56eff;
-      }
-      .skill-group:nth-child(1) .chip:nth-child(2):hover {
-        background: #7c3aed;
-      }
-      .skill-group:nth-child(1) .chip:nth-child(3):hover {
-        background: #6d28d9;
-      }
-      .skill-group:nth-child(1) .chip:nth-child(4):hover {
-        background: #5b21b6;
-      }
-
-      .skill-group:nth-child(2) .chip:nth-child(1):hover {
-        background: #e08a1a;
-      }
-      .skill-group:nth-child(2) .chip:nth-child(2):hover {
-        background: #f59e0b;
-      }
-      .skill-group:nth-child(2) .chip:nth-child(3):hover {
-        background: #d97706;
-      }
-      .skill-group:nth-child(2) .chip:nth-child(4):hover {
-        background: #b45309;
-      }
-
-      .skill-group:nth-child(3) .chip:nth-child(1):hover {
-        background: #1f8f4c;
-      }
-      .skill-group:nth-child(3) .chip:nth-child(2):hover {
-        background: #10b981;
-      }
-      .skill-group:nth-child(3) .chip:nth-child(3):hover {
-        background: #059669;
-      }
-      .skill-group:nth-child(3) .chip:nth-child(4):hover {
-        background: #047857;
-      }
-      .skill-group:nth-child(3) .chip:nth-child(5):hover {
-        background: #065f46;
+      @media (max-width: 600px) {
+        .skills-groups {
+          grid-template-columns: 1fr;
+          gap: 16px;
+        }
+        .skill-group {
+          padding: 20px 18px 18px;
+          border-radius: 16px;
+        }
+        .skill-group h4 {
+          margin-bottom: 16px;
+          padding-bottom: 14px;
+        }
+        .skill-group h4 i {
+          width: 32px;
+          height: 32px;
+          min-width: 32px;
+          font-size: 0.85rem;
+        }
       }
       /* ===== CONTACT - SPLIT WITH GRADIENT ===== */
       .contact-grid {
@@ -2706,6 +2760,220 @@
       .project-card .project-actions .video-btn i {
         margin-right: 4px;
       }
+      /* ===== EXPERIENCE SECTION ===== */
+      #experience {
+        --sec-accent: var(--c-amber);
+      }
+
+      .experience-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .experience-item {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 24px 28px;
+        border: 1px solid var(--border);
+        box-shadow: var(--shadow);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        position: relative;
+        overflow: hidden;
+      }
+
+      .experience-item::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, #e08a1a, #f59e0b);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.4s ease;
+      }
+
+      .experience-item:hover::before {
+        transform: scaleX(1);
+      }
+
+      .experience-item:hover {
+        transform: translateY(-6px);
+        border-color: var(--c-amber);
+        box-shadow: 0 20px 40px rgba(224, 138, 26, 0.2);
+      }
+
+      .experience-header {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 16px;
+      }
+
+      .experience-logo {
+        width: 52px;
+        height: 52px;
+        min-width: 52px;
+        border-radius: 12px;
+        background: linear-gradient(135deg, #fef3c7, #e08a1a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        box-shadow: 0 4px 12px rgba(224, 138, 26, 0.25);
+      }
+
+      .experience-title-group {
+        display: flex;
+        flex-direction: column;
+        gap: 2px;
+      }
+
+      .experience-title-group h3 {
+        font-family: var(--font-display);
+        font-size: 1.15rem;
+        color: var(--text);
+        margin: 0;
+      }
+
+      .experience-meta {
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+      }
+
+      .experience-role {
+        display: flex;
+        gap: 14px;
+        padding: 16px 0 0 20px;
+        position: relative;
+        border-left: 2px solid var(--border);
+        margin-left: 26px;
+        padding-bottom: 8px;
+      }
+
+      .experience-role:last-child {
+        padding-bottom: 0;
+        border-left: 2px solid transparent;
+      }
+
+      .role-dot {
+        position: absolute;
+        left: -8px;
+        top: 20px;
+        width: 14px;
+        height: 14px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #e08a1a, #f59e0b);
+        border: 3px solid var(--card);
+        box-shadow: 0 0 0 2px #e08a1a;
+      }
+
+      .role-content {
+        flex: 1;
+      }
+
+      .role-content h4 {
+        font-family: var(--font-display);
+        font-size: 1rem;
+        color: var(--text);
+        margin: 0 0 4px 0;
+      }
+
+      .role-type {
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        font-family: var(--font-mono);
+        display: block;
+        margin-bottom: 8px;
+      }
+
+      .role-details {
+        list-style: none;
+        padding: 0;
+        margin: 8px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+      }
+
+      .role-details li {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+        padding-left: 16px;
+        position: relative;
+        line-height: 1.5;
+      }
+
+      .role-details li::before {
+        content: "•";
+        color: var(--c-amber);
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .role-tag {
+        display: inline-block;
+        font-size: 0.75rem;
+        font-family: var(--font-mono);
+        color: var(--c-amber);
+        background: rgba(224, 138, 26, 0.1);
+        padding: 4px 12px;
+        border-radius: 20px;
+        margin-top: 8px;
+        border: 1px solid rgba(224, 138, 26, 0.2);
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .experience-item {
+          padding: 20px 18px;
+        }
+
+        .experience-logo {
+          width: 44px;
+          height: 44px;
+          min-width: 44px;
+          font-size: 1.2rem;
+        }
+
+        .experience-role {
+          margin-left: 22px;
+          padding-left: 16px;
+        }
+
+        .role-details li {
+          font-size: 0.82rem;
+        }
+      }
+      .experience-logo {
+        width: 54px;
+        height: 54px;
+        min-width: 54px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, #fef3c7, #e08a1a);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.4rem;
+        box-shadow: 0 6px 16px rgba(224, 138, 26, 0.28);
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        color: #fff;
+      }
+
+      .experience-item:hover .experience-logo {
+        transform: scale(1.08) rotate(-6deg);
+        box-shadow: 0 10px 24px rgba(224, 138, 26, 0.4);
+      }
+
+      [data-theme="dark"] .experience-logo {
+        background: linear-gradient(135deg, #4a3015, #e08a1a);
+      }
     </style>
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   </head>
@@ -2726,6 +2994,7 @@
         <li><a href="#about">About</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#education">Education</a></li>
+        <li><a href="#experience">Experience</a></li>
         <li><a href="#skills">Skills</a></li>
         <li><a href="#projects">Projects</a></li>
         <li><a href="#contact">Contact</a></li>
@@ -3129,8 +3398,81 @@
         </div>
       </section>
 
+      <!-- EXPERIENCE SECTION -->
+      <!-- EXPERIENCE SECTION -->
+      <section id="experience">
+        <span class="eyebrow">journey</span>
+        <h2 class="section-title">Experience</h2>
+
+        <div class="experience-timeline">
+          <!-- The Youth Trust -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <i class="fas fa-hands-helping"></i>
+              </div>
+              <div class="experience-title-group">
+                <h3>The Youth Trust</h3>
+                <span class="experience-meta">3 mos · Remote</span>
+              </div>
+            </div>
+
+            <div class="experience-role">
+              <div class="role-dot"></div>
+              <div class="role-content">
+                <h4>Media Volunteer</h4>
+                <span class="role-type"
+                  >Part-time · Aug 2026 – Present · 2 mos</span
+                >
+                <ul class="role-details">
+                  <li>
+                    Started as a script writer, contributing creative concepts
+                    and written content for media projects.
+                  </li>
+                  <li>
+                    Currently serving as Video Editor, responsible for editing
+                    short-form content including reels.
+                  </li>
+                </ul>
+                <span class="role-tag">
+                  <i class="fas fa-mobile-screen"></i> Online Media Management
+                </span>
+              </div>
+            </div>
+
+            <div class="experience-role">
+              <div class="role-dot"></div>
+              <div class="role-content">
+                <h4>Summer Volunteer Program Participant</h4>
+                <span class="role-type"
+                  >Internship · Jul 2026 – Aug 2026 · 2 mos</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Healthcare Evolutions Medical Group -->
+          <div class="experience-item">
+            <div class="experience-header">
+              <div class="experience-logo">
+                <i class="fas fa-briefcase-medical"></i>
+              </div>
+              <div class="experience-title-group">
+                <h3>Data Entry Officer</h3>
+                <span class="experience-meta"
+                  >Healthcare Evolutions Medical Group · Contract</span
+                >
+                <span class="experience-meta"
+                  >Jul 2026 – Aug 2026 · 2 mos · Remote</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <!-- SKILLS -->
-      <section id="skills">
+      <!-- <section id="skills">
         <span class="eyebrow">toolbox</span>
         <h2 class="section-title">Skills</h2>
         <div class="skills-groups">
@@ -3289,8 +3631,229 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
+      <section id="skills">
+        <span class="eyebrow">toolbox</span>
+        <h2 class="section-title">Skills</h2>
+        <div class="skills-groups">
+          <div
+            class="skill-group"
+            style="--fill-from: #a56eff; --fill-to: #7c3aed"
+          >
+            <h4><i class="fas fa-desktop"></i> Frontend</h4>
+            <div class="skill-rows">
+              <div class="skill-row">
+                <span class="skill-name">Angular</span
+                ><span class="skill-pct">90%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 90%; --fill-delay: 0.05s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">TypeScript</span
+                ><span class="skill-pct">85%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 85%; --fill-delay: 0.15s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">JavaScript</span
+                ><span class="skill-pct">88%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 88%; --fill-delay: 0.25s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">HTML / CSS</span
+                ><span class="skill-pct">92%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 92%; --fill-delay: 0.35s"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
 
+          <div
+            class="skill-group"
+            style="--fill-from: #e08a1a; --fill-to: #f59e0b"
+          >
+            <h4><i class="fas fa-server"></i> Backend</h4>
+            <div class="skill-rows">
+              <div class="skill-row">
+                <span class="skill-name">Node.js</span
+                ><span class="skill-pct">85%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 85%; --fill-delay: 0.05s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Express</span
+                ><span class="skill-pct">82%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 82%; --fill-delay: 0.15s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">ASP.NET Core</span
+                ><span class="skill-pct">80%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 80%; --fill-delay: 0.25s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">REST APIs</span
+                ><span class="skill-pct">88%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 88%; --fill-delay: 0.35s"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="skill-group"
+            style="--fill-from: #1f8f4c; --fill-to: #10b981"
+          >
+            <h4><i class="fas fa-database"></i> Data &amp; Tools</h4>
+            <div class="skill-rows">
+              <div class="skill-row">
+                <span class="skill-name">MongoDB</span
+                ><span class="skill-pct">82%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 82%; --fill-delay: 0.05s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">SQL Server</span
+                ><span class="skill-pct">78%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 78%; --fill-delay: 0.13s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Git</span
+                ><span class="skill-pct">85%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 85%; --fill-delay: 0.21s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">OOP &amp; Data Structures</span
+                ><span class="skill-pct">86%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 86%; --fill-delay: 0.29s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Python (basics)</span
+                ><span class="skill-pct">60%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 60%; --fill-delay: 0.37s"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- NEW MEDIA GROUP -->
+          <div
+            class="skill-group"
+            style="--fill-from: #ff6b6b; --fill-to: #f59e0b"
+          >
+            <h4><i class="fas fa-video"></i> Media &amp; Content</h4>
+            <div class="skill-rows">
+              <div class="skill-row">
+                <span class="skill-name">Script Writing</span
+                ><span class="skill-pct">88%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 88%; --fill-delay: 0.05s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Video Editing</span
+                ><span class="skill-pct">85%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 85%; --fill-delay: 0.15s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Content Creation</span
+                ><span class="skill-pct">82%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 82%; --fill-delay: 0.25s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Short-form Video (Reels)</span
+                ><span class="skill-pct">80%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 80%; --fill-delay: 0.35s"
+                  ></div>
+                </div>
+              </div>
+              <div class="skill-row">
+                <span class="skill-name">Online Media Management</span
+                ><span class="skill-pct">78%</span>
+                <div class="skill-bar">
+                  <div
+                    class="skill-bar-fill"
+                    style="--pct: 78%; --fill-delay: 0.45s"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <!-- PROJECTS -->
       <section id="projects">
         <span class="eyebrow">work</span>
@@ -3405,6 +3968,7 @@
           <a href="#about">About</a>
           <a href="#services">Services</a>
           <a href="#education">Education</a>
+          <a href="#experience">Experience</a>
           <a href="#skills">Skills</a>
           <a href="#projects">Projects</a>
           <a href="#contact">Contact</a>
